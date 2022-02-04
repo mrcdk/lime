@@ -25,8 +25,8 @@ typedef FillBufferResult = {
 @:access(lime.media.AudioBuffer)
 class NativeAudioSource2 {
 
-	static inline var BUFFER_LENGTH = 176000;
-	static inline var BUFFER_NUMBER = 2;
+	static inline var BUFFER_LENGTH = Std.int(176000 / 4);
+	static inline var BUFFER_NUMBER = 4;
 
 	var buffers:Array<ALBuffer>;
 	var audioSource:AudioSource;
@@ -82,7 +82,7 @@ class NativeAudioSource2 {
 	public function dispose() {
 		if (handle == null) {
 			return;
-		} 
+		}
 
 		if(playing) {
 			AL.sourceStop(handle);
@@ -94,7 +94,7 @@ class NativeAudioSource2 {
 			AL.sourcei(handle, AL.BUFFER, null);
 			error();
 		}
-		
+
 		AL.deleteSource(handle);
 		error();
 
@@ -141,6 +141,7 @@ class NativeAudioSource2 {
 
 				if(queued <= 0) {
 					stillStreaming = false;
+					break;
 				}
 			}
 
@@ -152,6 +153,7 @@ class NativeAudioSource2 {
 			audioSource.onComplete.dispatch();
 		} else if(playing && AL.getSourcei(handle, AL.SOURCE_STATE) == AL.STOPPED) {
 			// if we can't queue the buffers in time, the SOURCE_STATE will change to STOPPED
+			AL.sourceStop(handle);
 			AL.sourcePlay(handle);
 		}
 	}
@@ -207,12 +209,14 @@ class NativeAudioSource2 {
 			if(result.amount > 0) {
 				AL.sourceQueueBuffer(handle, buffers[i]);
 				error();
+			} else {
+				break;
 			}
 		}
 	}
 
-	function fillBuffer(buffer:ALBuffer, ?pos:haxe.PosInfos):FillBufferResult {
-		
+	inline function fillBuffer(buffer:ALBuffer, ?pos:haxe.PosInfos):FillBufferResult {
+
 		//var position = Std.int(Int64.toInt(vorbisFile.pcmTell()) * audioSource.buffer.channels * (audioSource.buffer.bitsPerSample / 8));
 
 		var result = readVorbisFile();
@@ -238,7 +242,7 @@ class NativeAudioSource2 {
 	inline function error(?pos:haxe.PosInfos) {
 		#if debug
 		var e = AL.getErrorString();
-		if(e != null && e.length > 0) trace('${pos.methodName}:${pos.lineNumber} -> ${e}');
+		if(e != null && e.length > 0) trace('ALERROR: ${pos.methodName}:${pos.lineNumber} -> ${e}');
 		#end
 	}
 
@@ -254,7 +258,7 @@ class NativeAudioSource2 {
 		return Std.int(seconds * (audioSource.buffer.sampleRate * audioSource.buffer.channels * (audioSource.buffer.bitsPerSample == 16 ? 2 : 1)));
 	}
 
-	function readVorbisFile(length:Int = BUFFER_LENGTH):FillBufferResult {
+	inline function readVorbisFile(length:Int = BUFFER_LENGTH):FillBufferResult {
 		var read = 0, total = 0, readMax = 0;
 		while(total < length) {
 			readMax = 4096;
@@ -309,7 +313,7 @@ class NativeAudioSource2 {
 	public function getGain() {
 		if(handle == null) {
 			return 1.0;
-		} 
+		}
 
 		return AL.getSourcef(handle, AL.GAIN);
 	}
@@ -383,7 +387,7 @@ class NativeAudioSource2 {
 	public function getPitch():Float {
 		if(handle == null) {
 			return 1.0;
-		} 
+		}
 
 		return AL.getSourcef(handle, AL.PITCH);
 	}
