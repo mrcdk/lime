@@ -408,6 +408,18 @@ namespace lime {
 	}
 
 
+	value System::GetSafeAreaInsets() {
+		SDL_Rect safeAreaInsets = { 0, 0, 0, 0 };
+		SDL_GetSafeAreaInsets (&safeAreaInsets);
+		value obj = alloc_empty_object ();
+		alloc_field (obj, val_id ("left"), alloc_float(safeAreaInsets.x));
+		alloc_field (obj, val_id ("top"), alloc_float(safeAreaInsets.y));
+		alloc_field (obj, val_id ("right"), alloc_float(safeAreaInsets.w));
+		alloc_field (obj, val_id ("bottom"), alloc_float(safeAreaInsets.h));
+		return obj;
+	}
+
+
 	double System::GetTimer () {
 
 		return SDL_GetTicks ();

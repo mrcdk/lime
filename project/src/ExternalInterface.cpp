@@ -2752,6 +2752,20 @@ namespace lime {
 	}
 
 
+	value lime_system_get_safe_area_insets () {
+
+		return System::GetSafeAreaInsets ();
+
+	}
+
+
+	HL_PRIM vdynamic* hl_lime_system_get_safe_area_insets () {
+		
+		return 0;
+
+	}
+
+
 	bool lime_system_get_ios_tablet () {
 
 		#ifdef IPHONE
@@ -3839,6 +3853,7 @@ namespace lime {
 	DEFINE_PRIME0 (lime_system_get_device_vendor);
 	DEFINE_PRIME3 (lime_system_get_directory);
 	DEFINE_PRIME1 (lime_system_get_display);
+	DEFINE_PRIME0 (lime_system_get_safe_area_insets);
 	DEFINE_PRIME0 (lime_system_get_ios_tablet);
 	DEFINE_PRIME0 (lime_system_get_num_displays);
 	DEFINE_PRIME0 (lime_system_get_platform_label);
@@ -4022,6 +4037,7 @@ namespace lime {
 	DEFINE_HL_PRIM (_BYTES, lime_system_get_device_vendor, _NO_ARG);
 	DEFINE_HL_PRIM (_BYTES, lime_system_get_directory, _I32 _STRING _STRING);
 	DEFINE_HL_PRIM (_DYN, lime_system_get_display, _I32);
+	DEFINE_HL_PRIM (_DYN, lime_system_get_safe_area_insets, _NO_ARG);
 	DEFINE_HL_PRIM (_BOOL, lime_system_get_ios_tablet, _NO_ARG);
 	DEFINE_HL_PRIM (_I32, lime_system_get_num_displays, _NO_ARG);
 	DEFINE_HL_PRIM (_BYTES, lime_system_get_platform_label, _NO_ARG);

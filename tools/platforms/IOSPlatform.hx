@@ -182,13 +182,13 @@ class IOSPlatform extends PlatformTarget
 
 		if (project.config.getString("ios.device", "universal") == "universal" || project.config.getString("ios.device") == "iphone")
 		{
-			if (project.config.getFloat("ios.deployment", 9) < 5)
+			if (project.config.getFloat("ios.deployment", 11) < 5)
 			{
 				ArrayTools.addUnique(architectures, Architecture.ARMV6);
 			}
 		}
 
-		if (project.config.getFloat("ios.deployment", 9) > 10) 
+		if (project.config.getFloat("ios.deployment", 11) > 10)
 		{
 			architectures.remove(Architecture.ARMV7);
 		}
@@ -247,7 +247,7 @@ class IOSPlatform extends PlatformTarget
 			case "ipad": "2";
 			default: "1,2";
 		}
-		context.DEPLOYMENT = project.config.getString("ios.deployment", "9.0");
+		context.DEPLOYMENT = project.config.getString("ios.deployment", "11.0");
 
 		if (project.config.getString("ios.compiler") == "llvm" || project.config.getString("ios.compiler", "clang") == "clang")
 		{

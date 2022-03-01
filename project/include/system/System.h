@@ -38,6 +38,7 @@ namespace lime {
 			static bool GetIOSTablet ();
 			#endif
 			static int GetNumDisplays ();
+			static value GetSafeAreaInsets ();
 			static std::wstring* GetPlatformLabel ();
 			static std::wstring* GetPlatformName ();
 			static std::wstring* GetPlatformVersion ();

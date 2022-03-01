@@ -275,6 +275,14 @@ class System {
 
 	}
 
+	public static function getSafeAreaInsets():{top:Float, left:Float, right:Float, bottom:Float} {
+		#if (lime_cffi && !macro)
+		var safeAreaInsets:Dynamic = NativeCFFI.lime_system_get_safe_area_insets ();
+		return safeAreaInsets;
+		#end
+
+		return {top: 0, left: 0, right: 0, bottom: 0};
+	}
 
 	public static function getTimer ():Int {
 
