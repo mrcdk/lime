@@ -42,6 +42,9 @@ class IOSPlatform extends PlatformTarget
 
 	public override function build():Void
 	{
+
+		Sys.putEnv ("HXCPP_IOS_MIN_VERSION", "11.0");
+
 		if (project.targetFlags.exists("xcode") && System.hostPlatform == MAC)
 		{
 			System.runCommand("", "open", [targetDirectory + "/" + project.app.file + ".xcodeproj"]);
@@ -406,6 +409,9 @@ class IOSPlatform extends PlatformTarget
 
 	public override function rebuild():Void
 	{
+
+		Sys.putEnv ("HXCPP_IOS_MIN_VERSION", "11.0");
+
 		var armv6 = (project.architectures.indexOf(Architecture.ARMV6) > -1 && !project.targetFlags.exists("simulator"));
 		var armv7 = (command == "rebuild"
 			|| (project.architectures.indexOf(Architecture.ARMV7) > -1 && !project.targetFlags.exists("simulator")));
@@ -414,6 +420,10 @@ class IOSPlatform extends PlatformTarget
 			|| (project.architectures.indexOf(Architecture.ARM64) > -1 && !project.targetFlags.exists("simulator")));
 		var i386 = (command == "rebuild" || project.targetFlags.exists("simulator"));
 		var x86_64 = (command == "rebuild" || project.targetFlags.exists("simulator"));
+
+		armv7 = false;
+		armv7s = false;
+		i386 = false;
 
 		var arc = (project.targetFlags.exists("arc"));
 
