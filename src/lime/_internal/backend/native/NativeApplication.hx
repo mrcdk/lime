@@ -435,6 +435,7 @@ class NativeApplication {
 						if (!window.onRender.canceled) {
 
 							window.__backend.contextFlip ();
+							window.onRenderFlip.dispatch (window.context);
 
 						}
 
