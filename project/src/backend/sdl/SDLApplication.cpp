@@ -656,6 +656,26 @@ namespace lime {
 
 	void SDLApplication::ProcessMouseEvent (SDL_Event* event) {
 
+		// Skip reporting mouse events if they are coming from a touch event as a emulated mouse event
+		switch(event->type) {
+			case SDL_MOUSEMOTION:
+				if(event->motion.which == SDL_TOUCH_MOUSEID) {
+					return;
+				}
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+			case SDL_MOUSEBUTTONUP:
+				if(event->button.which == SDL_TOUCH_MOUSEID) {
+					return;
+				}
+				break;
+			case SDL_MOUSEWHEEL:
+				if(event->wheel.which == SDL_TOUCH_MOUSEID) {
+					return;
+				}
+				break;
+		}
+
 		if (MouseEvent::callback) {
 
 			switch (event->type) {
