@@ -71,6 +71,8 @@ class NativeCFFI {
 	@:cffi private static function lime_application_quit (handle:Dynamic):Int;
 	@:cffi private static function lime_application_set_frame_rate (handle:Dynamic, value:Float):Void;
 	@:cffi private static function lime_application_update (handle:Dynamic):Bool;
+	@:cffi private static function lime_application_set_emulated_mouse_from_touch (handle:Dynamic, enabled:Bool):Void;
+	@:cffi private static function lime_application_get_emulated_mouse_from_touch (handle:Dynamic):Bool;
 	@:cffi private static function lime_audio_load (data:Dynamic, buffer:Dynamic):Dynamic;
 	@:cffi private static function lime_audio_load_bytes (data:Dynamic, buffer:Dynamic):Dynamic;
 	@:cffi private static function lime_audio_load_file (path:Dynamic, buffer:Dynamic):Dynamic;
@@ -219,6 +221,8 @@ class NativeCFFI {
 	private static var lime_application_quit = new cpp.Callable<cpp.Object->Int> (cpp.Prime._loadPrime ("lime", "lime_application_quit", "oi", false));
 	private static var lime_application_set_frame_rate = new cpp.Callable<cpp.Object->Float->cpp.Void> (cpp.Prime._loadPrime ("lime", "lime_application_set_frame_rate", "odv", false));
 	private static var lime_application_update = new cpp.Callable<cpp.Object->Bool> (cpp.Prime._loadPrime ("lime", "lime_application_update", "ob", false));
+	private static var lime_application_set_emulated_mouse_from_touch = new cpp.Callable<cpp.Object->Bool->cpp.Void> (cpp.Prime._loadPrime ("lime", "lime_application_set_emulated_mouse_from_touch", "obv", false));
+	private static var lime_application_get_emulated_mouse_from_touch = new cpp.Callable<cpp.Object->Bool> (cpp.Prime._loadPrime ("lime", "lime_application_get_emulated_mouse_from_touch", "ob", false));
 	private static var lime_audio_load = new cpp.Callable<cpp.Object->cpp.Object->cpp.Object> (cpp.Prime._loadPrime ("lime", "lime_audio_load", "ooo", false));
 	private static var lime_audio_load_bytes = new cpp.Callable<cpp.Object->cpp.Object->cpp.Object> (cpp.Prime._loadPrime ("lime", "lime_audio_load_bytes", "ooo", false));
 	private static var lime_audio_load_file = new cpp.Callable<cpp.Object->cpp.Object->cpp.Object> (cpp.Prime._loadPrime ("lime", "lime_audio_load_file", "ooo", false));
@@ -370,6 +374,8 @@ class NativeCFFI {
 	private static var lime_application_quit = CFFI.load ("lime", "lime_application_quit", 1);
 	private static var lime_application_set_frame_rate = CFFI.load ("lime", "lime_application_set_frame_rate", 2);
 	private static var lime_application_update = CFFI.load ("lime", "lime_application_update", 1);
+	private static var lime_application_set_emulated_mouse_from_touch = CFFI.load ("lime", "lime_application_set_emulated_mouse_from_touch", 2);
+	private static var lime_application_get_emulated_mouse_from_touch = CFFI.load ("lime", "lime_application_get_emulated_mouse_from_touch", 1);
 	private static var lime_audio_load = CFFI.load ("lime", "lime_audio_load", 2);
 	private static var lime_audio_load_bytes = CFFI.load ("lime", "lime_audio_load_bytes", 2);
 	private static var lime_audio_load_file = CFFI.load ("lime", "lime_audio_load_file", 2);

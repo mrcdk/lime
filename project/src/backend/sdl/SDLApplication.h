@@ -34,6 +34,8 @@ namespace lime {
 			virtual int Quit ();
 			virtual void SetFrameRate (double frameRate);
 			virtual bool Update ();
+			virtual void SetEmulatedMouseFromTouch(bool enabled);
+			virtual bool GetEmulatedMouseFromTouch();
 
 			void RegisterWindow (SDLWindow *window);
 
@@ -74,6 +76,8 @@ namespace lime {
 			TextEvent textEvent;
 			TouchEvent touchEvent;
 			WindowEvent windowEvent;
+
+			bool emulateMouseFromTouch;
 
 	};
 

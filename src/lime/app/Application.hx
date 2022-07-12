@@ -77,6 +77,8 @@ class Application extends Module {
 	**/
 	public var windows (get, null):Array<Window>;
 
+	public var emulateMouseFromTouch(get, set):Bool;
+
 
 	@:noCompletion private var __backend:ApplicationBackend;
 	@:noCompletion private var __preloader:Preloader;
@@ -127,7 +129,6 @@ class Application extends Module {
 		__preloader.onComplete.add (onPreloadComplete);
 
 	}
-
 
 	/**
 		Adds a new module to the Application
@@ -732,6 +733,17 @@ class Application extends Module {
 
 		return __windows;
 
+	}
+
+
+
+	@:noCompletion private inline function set_emulateMouseFromTouch(enabled:Bool):Bool {
+		__backend.setEmulatedMouseFromTouch(enabled);
+		return enabled;
+	}
+
+	@:noCompletion private inline function get_emulateMouseFromTouch():Bool {
+		return __backend.getEmulatedMouseFromTouch();
 	}
 
 

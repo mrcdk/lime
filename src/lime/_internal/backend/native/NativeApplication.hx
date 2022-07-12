@@ -94,6 +94,19 @@ class NativeApplication {
 
 	}
 
+	public function setEmulatedMouseFromTouch(enabled:Bool) {
+		#if (!macro && lime_cffi)
+		NativeCFFI.lime_application_set_emulated_mouse_from_touch(handle, enabled);
+		#end
+	}
+
+	public function getEmulatedMouseFromTouch():Bool {
+		#if (!macro && lime_cffi)
+		return NativeCFFI.lime_application_get_emulated_mouse_from_touch(handle);
+		#end
+		return true;
+	}
+
 
 	public function exec ():Int {
 

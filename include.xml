@@ -5,6 +5,8 @@
 
 	<set name="lime" />
 
+	<define name="lime-support-set-emulate-mouse-from-touch" />
+
 	<define name="native" if="cpp || neko || nodejs || cs || java || hl" />
 	<define name="howlerjs" if="html5" />
 

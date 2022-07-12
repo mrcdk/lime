@@ -284,6 +284,16 @@ namespace lime {
 
 	}
 
+	void lime_application_set_emulated_mouse_from_touch(value application, bool enabled) {
+		Application* app = (Application*)val_data (application);
+		app->SetEmulatedMouseFromTouch(enabled);
+	}
+
+	bool lime_application_get_emulated_mouse_from_touch(value application) {
+		Application* app = (Application*)val_data (application);
+		return app->GetEmulatedMouseFromTouch();
+	}
+
 
 	value lime_audio_load_bytes (value data, value buffer) {
 
@@ -3760,6 +3770,8 @@ namespace lime {
 	DEFINE_PRIME1 (lime_application_quit);
 	DEFINE_PRIME2v (lime_application_set_frame_rate);
 	DEFINE_PRIME1 (lime_application_update);
+	DEFINE_PRIME2v (lime_application_set_emulated_mouse_from_touch);
+	DEFINE_PRIME1 (lime_application_get_emulated_mouse_from_touch);
 	DEFINE_PRIME2 (lime_audio_load);
 	DEFINE_PRIME2 (lime_audio_load_bytes);
 	DEFINE_PRIME2 (lime_audio_load_file);

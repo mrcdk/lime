@@ -22,6 +22,8 @@ namespace lime {
 			virtual int Quit () = 0;
 			virtual void SetFrameRate (double frameRate) = 0;
 			virtual bool Update () = 0;
+			virtual void SetEmulatedMouseFromTouch(bool enabled) = 0;
+			virtual bool GetEmulatedMouseFromTouch() = 0;
 
 
 	};
