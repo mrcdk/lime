@@ -11,7 +11,7 @@
 	
 	<application android:label="::APP_TITLE::" ::if (HAS_ICON):: android:icon="@drawable/icon"::end:: android:allowBackup="true" android:theme="@android:style/Theme.NoTitleBar::if (WIN_FULLSCREEN)::.Fullscreen::end::" android:hardwareAccelerated="true" android:allowNativeHeapPointerTagging="false">
 		
-		<activity android:name="MainActivity" android:launchMode="singleTask" android:label="::APP_TITLE::" android:configChanges="keyboardHidden|orientation|screenSize|screenLayout"::if (WIN_ORIENTATION=="portrait"):: android:screenOrientation="sensorPortrait"::end::::if (WIN_ORIENTATION=="landscape"):: android:screenOrientation="sensorLandscape"::end::>
+		<activity android:name="MainActivity" android:launchMode="singleTask" android:label="::APP_TITLE::" android:configChanges="keyboardHidden|orientation|screenSize|screenLayout"::if (WIN_ORIENTATION=="portrait"):: android:screenOrientation="sensorPortrait"::end:: ::if (WIN_ORIENTATION=="landscape"):: android:screenOrientation="sensorLandscape"::end:: ::if (ANDROID_TARGET_SDK_VERSION >= 31):: android:exported="true" ::end::>
 			
 			<intent-filter>
 				
