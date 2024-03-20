@@ -1,7 +1,30 @@
 Changelog
 =========
 
-8.1.0 (??/??/2023)
+8.1.2 (03/13/2024)
+------------------
+
+* Fixed error handling when failing to get joystick information in html5.
+* Fixed error handling when creating `openfl` alias on Linux.
+* Fixed error handling when getting information about Haxelibs.
+* Fixed error when loading fonts in HL.
+* Fixed error when loading grouped music/sound assets.
+* Fixed errors when building on Apple Silicon without Rosetta.
+* Fixed assets not being loaded when using nested asset tags (e.g., `<assets path="assets"> <image path="MyImage.png" /> </assets>`).
+* Fixed VC runtime potentially not being bundled into HL apps built on Windows.
+* Fixed error in `AssetsMacro` when building with Haxe 4.3.4 or newer.
+* Fixed crash on iOS during network operations.
+* Updated howler.js to 2.2.3.
+* Removed ARMv7 architecture from Android default architectures.
+* Removed deprecated ARMv7 architecture from iOS default architectures.
+
+8.1.1 (11/08/2023)
+------------------
+
+* Fixed subset of characters escaped in file paths to fix Android builds on Windows.
+* Fixed playback of very long sounds by changing arithmetic to avoid integer overflow.
+
+8.1.0 (10/16/2023)
 ------------------
 
 * Added `visible` property to `Window` to allow it to be shown and hidden
