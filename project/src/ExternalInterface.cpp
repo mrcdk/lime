@@ -1677,6 +1677,14 @@ namespace lime {
 
 	}
 
+	int lime_gamepad_get_player_index (int id) {
+		return Gamepad::GetPlayerIndex (id);
+	}
+
+	int lime_gamepad_get_steam_input_gamepad_index (int id) {
+		return Gamepad::GetSteamInputGamepadIndex (id);
+	}
+
 
 	value lime_gzip_compress (value buffer, value bytes) {
 
@@ -3970,6 +3978,8 @@ namespace lime {
 	DEFINE_PRIME2v (lime_gamepad_event_manager_register);
 	DEFINE_PRIME1 (lime_gamepad_get_device_guid);
 	DEFINE_PRIME1 (lime_gamepad_get_device_name);
+	DEFINE_PRIME1 (lime_gamepad_get_player_index);
+	DEFINE_PRIME1 (lime_gamepad_get_steam_input_gamepad_index);
 	DEFINE_PRIME2 (lime_gzip_compress);
 	DEFINE_PRIME2 (lime_gzip_decompress);
 	DEFINE_PRIME2v (lime_haptic_vibrate);

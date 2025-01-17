@@ -5,6 +5,8 @@
 #include <SDL.h>
 #include <ui/Gamepad.h>
 #include <map>
+#include <cstring>
+#include <string>
 
 
 namespace lime {

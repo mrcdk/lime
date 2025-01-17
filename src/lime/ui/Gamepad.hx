@@ -18,6 +18,8 @@ class Gamepad
 	public var guid(get, never):String;
 	public var id(default, null):Int;
 	public var name(get, never):String;
+	public var playerIndex(get, never):Int;
+	public var steamInputGamepadIndex(get, never):Int;
 	public var onAxisMove = new Event<GamepadAxis->Float->Void>();
 	public var onButtonDown = new Event<GamepadButton->Void>();
 	public var onButtonUp = new Event<GamepadButton->Void>();
@@ -90,6 +92,24 @@ class Gamepad
 		return devices[this.id].id;
 		#else
 		return null;
+		#end
+	}
+
+	@:noCompletion private inline function get_playerIndex():Int
+	{
+		#if (lime_cffi && !macro)
+		return NativeCFFI.lime_gamepad_get_player_index(this.id);
+		#else
+		return -1;
+		#end
+	}
+
+	@:noCompletion private inline function get_steamInputGamepadIndex():Int
+	{
+		#if (lime_cffi && !macro)
+		return NativeCFFI.lime_gamepad_get_steam_input_gamepad_index(this.id);
+		#else
+		return -1;
 		#end
 	}
 }
