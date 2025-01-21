@@ -72,6 +72,7 @@
 #define HAVE_MATH_H 1
 #define HAVE_ICONV_H 1
 #define HAVE_SIGNAL_H 1
+#define HAVE_LINUX_INPUT_H 1
 /* #undef HAVE_ALTIVEC_H */
 /* #undef HAVE_PTHREAD_NP_H */
 /* #undef HAVE_LIBUDEV_H */
