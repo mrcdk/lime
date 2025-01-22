@@ -426,10 +426,11 @@ namespace lime {
 
 				case SDL_CONTROLLERDEVICEADDED:
 
-					if (SDLGamepad::Connect (event->cdevice.which)) {
+					SDL_JoystickID joystickId;
+					if (SDLGamepad::Connect (event->cdevice.which, &joystickId)) {
 
 						gamepadEvent.type = GAMEPAD_CONNECT;
-						gamepadEvent.id = SDLGamepad::GetInstanceID (event->cdevice.which);
+						gamepadEvent.id = joystickId;
 
 						GamepadEvent::Dispatch (&gamepadEvent);
 

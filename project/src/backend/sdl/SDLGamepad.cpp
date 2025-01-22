@@ -4,10 +4,9 @@
 namespace lime {
 
 
-	std::map<int, SDL_GameController*> gameControllers = std::map<int, SDL_GameController*> ();
-	std::map<int, int> gameControllerIDs = std::map<int, int> ();
+	std::map<SDL_JoystickID, SDL_GameController*> gameControllers = std::map<SDL_JoystickID, SDL_GameController*> ();
 
-	bool gameControllerExists (int id) {
+	bool gameControllerExists (SDL_JoystickID id) {
 		if(gameControllers.find (id) != gameControllers.end ()) {
 			return true;
 		} else {
@@ -17,7 +16,7 @@ namespace lime {
 	}
 
 
-	bool SDLGamepad::Connect (int deviceID) {
+	bool SDLGamepad::Connect (int deviceID, SDL_JoystickID *joystickId) {
 
 		if (SDL_IsGameController (deviceID)) {
 
@@ -28,8 +27,9 @@ namespace lime {
 				SDL_Joystick *joystick = SDL_GameControllerGetJoystick (gameController);
 				int id = SDL_JoystickInstanceID (joystick);
 
+				*joystickId = id;
+
 				gameControllers[id] = gameController;
-				gameControllerIDs[deviceID] = id;
 
 				return true;
 
@@ -42,7 +42,7 @@ namespace lime {
 	}
 
 
-	bool SDLGamepad::Disconnect (int id) {
+	bool SDLGamepad::Disconnect (SDL_JoystickID id) {
 
 		if (gameControllerExists(id)) {
 
@@ -55,13 +55,6 @@ namespace lime {
 		}
 
 		return false;
-
-	}
-
-
-	int SDLGamepad::GetInstanceID (int deviceID) {
-
-		return gameControllerIDs[deviceID];
 
 	}
 
@@ -184,7 +177,7 @@ namespace lime {
 	}
 
 
-	int Gamepad::GetType (int id) {
+	int Gamepad::GetType (SDL_JoystickID id) {
 
 		if (gameControllerExists(id)) {
 			return SDL_GameControllerGetType(gameControllers[id]);
@@ -195,7 +188,7 @@ namespace lime {
 	}
 
 
-	uint64_t Gamepad::GetDeviceSteamInputHandle (int id) {
+	uint64_t Gamepad::GetDeviceSteamInputHandle (SDL_JoystickID id) {
 
 		if (gameControllerExists(id)) {
 			return SDL_GameControllerGetSteamHandle(gameControllers[id]);

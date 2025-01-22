@@ -156,7 +156,7 @@ class Gamepad
 		#end
 	}
 
-	@:noCompletion private inline function get_steamInputHandle():String
+	@:noCompletion private function get_steamInputHandle():String
 	{
 		#if (lime_cffi && !macro)
 		return CFFI.stringValue(NativeCFFI.lime_gamepad_get_device_steam_input_handle(this.id));
