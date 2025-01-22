@@ -157,6 +157,8 @@ class NativeCFFI
 
 	@:cffi private static function lime_gamepad_get_device_name(id:Int):Dynamic;
 
+	@:cffi private static function lime_gamepad_get_device_extra_info(id:Int):Dynamic;
+
 	@:cffi private static function lime_gamepad_get_type(id:Int):Int;
 
 	@:cffi private static function lime_gamepad_get_device_steam_input_handle(id:Int):Dynamic;
@@ -450,6 +452,8 @@ class NativeCFFI
 		false));
 	private static var lime_gamepad_get_device_name = new cpp.Callable<Int->cpp.Object>(cpp.Prime._loadPrime("lime", "lime_gamepad_get_device_name", "io",
 		false));
+	private static var lime_gamepad_get_device_extra_info = new cpp.Callable<Int->cpp.Object>(cpp.Prime._loadPrime("lime", "lime_gamepad_get_device_extra_info", "io",
+		false));
 	private static var lime_gamepad_get_type = new cpp.Callable<Int->cpp.Object>(cpp.Prime._loadPrime("lime", "lime_gamepad_get_type", "ii",
 		false));
 	private static var lime_gamepad_get_device_steam_input_handle = new cpp.Callable<Int->cpp.Object>(cpp.Prime._loadPrime("lime", "lime_gamepad_get_device_steam_input_handle", "io",
@@ -684,6 +688,7 @@ class NativeCFFI
 	private static var lime_gamepad_add_mappings = CFFI.load("lime", "lime_gamepad_add_mappings", 1);
 	private static var lime_gamepad_get_device_guid = CFFI.load("lime", "lime_gamepad_get_device_guid", 1);
 	private static var lime_gamepad_get_device_name = CFFI.load("lime", "lime_gamepad_get_device_name", 1);
+	private static var lime_gamepad_get_device_extra_info = CFFI.load("lime", "lime_gamepad_get_device_extra_info", 1);
 	private static var lime_gamepad_get_type = CFFI.load("lime", "lime_gamepad_get_type", 1);
 	private static var lime_gamepad_get_device_steam_input_handle = CFFI.load("lime", "lime_gamepad_get_device_steam_input_handle", 1);
 	private static var lime_gamepad_event_manager_register = CFFI.load("lime", "lime_gamepad_event_manager_register", 2);

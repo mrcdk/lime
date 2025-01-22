@@ -1716,6 +1716,36 @@ namespace lime {
 	}
 
 
+	value lime_gamepad_get_device_extra_info (int id) {
+
+		const char* serial = Gamepad::GetSerial(id);
+		const char* path = Gamepad::GetRawPath(id);
+
+		value usb_obj = alloc_empty_object();
+		alloc_field(usb_obj, val_id("vendor"), alloc_int(Gamepad::GetVendor(id)));
+		alloc_field(usb_obj, val_id("product"), alloc_int(Gamepad::GetProduct(id)));
+		alloc_field(usb_obj, val_id("version"), alloc_int(Gamepad::GetProductVersion(id)));
+		alloc_field(usb_obj, val_id("firmware"), alloc_int(Gamepad::GetFirmwareVersion(id)));
+
+		Gamepad::GamepadGUIDInfo info = {0, 0, 0, 0};
+		Gamepad::GetGUIDInfo(id, &info);
+		value guid_obj = alloc_empty_object();
+		alloc_field(guid_obj, val_id("vendor"), alloc_int(info.vendor));
+		alloc_field(guid_obj, val_id("product"), alloc_int(info.product));
+		alloc_field(guid_obj, val_id("version"), alloc_int(info.version));
+		alloc_field(guid_obj, val_id("crc16"), alloc_int(info.crc16));
+
+		value obj = alloc_empty_object();
+		alloc_field(obj, val_id("path"), path ? alloc_string(path) : alloc_null());
+		alloc_field(obj, val_id("serial"), serial ? alloc_string(serial) : alloc_null());
+		alloc_field(obj, val_id("usb"), usb_obj);
+		alloc_field(obj, val_id("guid"), guid_obj);
+
+		return obj;
+
+	}
+
+
 	int lime_gamepad_get_type (int id) {
 
 		return Gamepad::GetType (id);
@@ -4010,6 +4040,7 @@ namespace lime {
 	DEFINE_PRIME2v (lime_gamepad_event_manager_register);
 	DEFINE_PRIME1 (lime_gamepad_get_device_guid);
 	DEFINE_PRIME1 (lime_gamepad_get_device_name);
+	DEFINE_PRIME1 (lime_gamepad_get_device_extra_info);
 	DEFINE_PRIME1 (lime_gamepad_get_type);
 	DEFINE_PRIME1 (lime_gamepad_get_device_steam_input_handle);
 	DEFINE_PRIME2 (lime_gzip_compress);

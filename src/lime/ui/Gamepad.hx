@@ -4,10 +4,45 @@ import lime._internal.backend.native.NativeCFFI;
 import lime.app.Event;
 import lime.system.CFFI;
 
+using StringTools;
+
 #if !lime_debug
 @:fileXml('tags="haxe,release"')
 @:noDebug
 #end
+
+private typedef GamepadExtraInfoT = {
+	path:String,
+	serial:String,
+	usb: {
+		vendor:Int,
+		product:Int,
+		version:Int,
+		firmware:Int,
+	},
+	guid: {
+		vendor:Int,
+		product:Int,
+		version:Int,
+		crc16:Int,
+	},
+}
+
+@:forward
+abstract GamepadExtraInfo(GamepadExtraInfoT) from Dynamic {
+	@:to inline function toString():String {
+		var result = '---GamepadExtraInfo---';
+		result += '\n\tPath: ${this.path}';
+		if(this.serial != null) {
+			result += '\n\tSerial: ${this.serial}';
+		}
+		result += '\n\tUSB -> Vendor: 0x${this.usb.vendor.hex().lpad("0", 4)} Product: 0x${this.usb.product.hex().lpad("0", 4)} Version: 0x${this.usb.version.hex().lpad("0", 4)} Firmware: 0x${this.usb.firmware.hex().lpad("0", 4)}';
+		result += '\n\tGUID -> Vendor: 0x${this.guid.vendor.hex().lpad("0", 4)} Product: 0x${this.guid.product.hex().lpad("0", 4)} Version: 0x${this.guid.version.hex().lpad("0", 4)} CRC16: 0x${this.guid.crc16.hex().lpad("0", 4)}';
+		result += '\n----------------------';
+		return result;
+	}
+}
+
 @:access(lime._internal.backend.native.NativeCFFI)
 @:access(lime.ui.Joystick)
 class Gamepad
@@ -20,6 +55,7 @@ class Gamepad
 	public var id(default, null):Int;
 	public var name(get, never):String;
 	public var type(get, never):GamepadType;
+	public var extraInfo(get, never):GamepadExtraInfo;
 	public var steamInputHandle(get, never):String;
 	public var onAxisMove = new Event<GamepadAxis->Float->Void>();
 	public var onButtonDown = new Event<GamepadButton->Void>();
@@ -88,6 +124,28 @@ class Gamepad
 		return null;
 		#end
 	}
+
+	@:noCompletion private inline function get_extraInfo():GamepadExtraInfo
+		{
+			#if (lime_cffi && !macro)
+			return NativeCFFI.lime_gamepad_get_device_extra_info(this.id);
+			#else
+			return {
+				vendor: 0,
+				product: 0,
+				product_version: 0,
+				firmware_version: 0,
+				serial: null,
+				path: null,
+				guid_info: {
+					vendor: 0,
+					product: 0,
+					version: 0,
+					crc16: 0,
+				},
+			};
+			#end
+		}
 
 	@:noCompletion private inline function get_type():GamepadType
 	{
