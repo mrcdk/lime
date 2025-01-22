@@ -213,6 +213,13 @@ class NativeApplication
 
 			case DISCONNECT:
 				Gamepad.__disconnect(gamepadEventInfo.id);
+
+			case STEAM_HANDLE_CHANGED:
+				var gamepad = Gamepad.devices.get(gamepadEventInfo.id);
+				if (gamepad != null)
+				{
+					gamepad.onSteamInputHandleChanged.dispatch(gamepad);
+				}
 		}
 	}
 
@@ -430,8 +437,7 @@ class NativeApplication
 					window.onTextInput.dispatch(CFFI.stringValue(textEventInfo.text));
 
 				case TEXT_EDIT:
-					window.onTextEdit.dispatch(CFFI.stringValue(textEventInfo.text), textEventInfo.start,
-						textEventInfo.length);
+					window.onTextEdit.dispatch(CFFI.stringValue(textEventInfo.text), textEventInfo.start, textEventInfo.length);
 
 				default:
 			}
@@ -718,6 +724,7 @@ class NativeApplication
 	var BUTTON_UP = 2;
 	var CONNECT = 3;
 	var DISCONNECT = 4;
+	var STEAM_HANDLE_CHANGED = 5;
 }
 
 @:keep /*private*/ class JoystickEventInfo
@@ -757,12 +764,12 @@ class NativeApplication
 
 @:keep /*private*/ class KeyEventInfo
 {
-	public var keyCode: Float;
+	public var keyCode:Float;
 	public var modifier:Int;
 	public var type:KeyEventType;
 	public var windowID:Int;
 
-	public function new(type:KeyEventType = null, windowID:Int = 0, keyCode: Float = 0, modifier:Int = 0)
+	public function new(type:KeyEventType = null, windowID:Int = 0, keyCode:Float = 0, modifier:Int = 0)
 	{
 		this.type = type;
 		this.windowID = windowID;
@@ -793,7 +800,8 @@ class NativeApplication
 	public var y:Float;
 	public var clickCount:Int;
 
-	public function new(type:MouseEventType = null, windowID:Int = 0, x:Float = 0, y:Float = 0, button:Int = 0, movementX:Float = 0, movementY:Float = 0, clickCount:Int = 0)
+	public function new(type:MouseEventType = null, windowID:Int = 0, x:Float = 0, y:Float = 0, button:Int = 0, movementX:Float = 0, movementY:Float = 0,
+			clickCount:Int = 0)
 	{
 		this.type = type;
 		this.windowID = 0;

@@ -19,10 +19,13 @@ class Gamepad
 	public var guid(get, never):String;
 	public var id(default, null):Int;
 	public var name(get, never):String;
+	public var type(get, never):GamepadType;
+	public var steamInputHandle(get, never):String;
 	public var onAxisMove = new Event<GamepadAxis->Float->Void>();
 	public var onButtonDown = new Event<GamepadButton->Void>();
 	public var onButtonUp = new Event<GamepadButton->Void>();
 	public var onDisconnect = new Event<Void->Void>();
+	public var onSteamInputHandleChanged = new Event<Gamepad->Void>();
 
 	public function new(id:Int)
 	{
@@ -81,6 +84,24 @@ class Gamepad
 		#elseif (js && html5)
 		var devices = Joystick.__getDeviceData();
 		return devices[this.id].id;
+		#else
+		return null;
+		#end
+	}
+
+	@:noCompletion private inline function get_type():GamepadType
+	{
+		#if (lime_cffi && !macro)
+		return NativeCFFI.lime_gamepad_get_type(this.id);
+		#else
+		return UNKNOWN;
+		#end
+	}
+
+	@:noCompletion private inline function get_steamInputHandle():String
+	{
+		#if (lime_cffi && !macro)
+		return CFFI.stringValue(NativeCFFI.lime_gamepad_get_device_steam_input_handle(this.id));
 		#else
 		return null;
 		#end

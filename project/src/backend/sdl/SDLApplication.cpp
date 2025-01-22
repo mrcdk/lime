@@ -179,6 +179,7 @@ namespace lime {
 			case SDL_CONTROLLERBUTTONUP:
 			case SDL_CONTROLLERDEVICEADDED:
 			case SDL_CONTROLLERDEVICEREMOVED:
+			case SDL_CONTROLLERSTEAMHANDLEUPDATED:
 
 				ProcessGamepadEvent (event);
 				break;
@@ -443,6 +444,18 @@ namespace lime {
 
 					GamepadEvent::Dispatch (&gamepadEvent);
 					SDLGamepad::Disconnect (event->cdevice.which);
+					break;
+
+				}
+
+				case SDL_CONTROLLERSTEAMHANDLEUPDATED: {
+
+
+					gamepadEvent.type = GAMEPAD_STEAM_HANDLE_CHANGED;
+					gamepadEvent.id = event->cdevice.which;
+
+					GamepadEvent::Dispatch (&gamepadEvent);
+
 					break;
 
 				}

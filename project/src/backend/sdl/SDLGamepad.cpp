@@ -88,4 +88,17 @@ namespace lime {
 	}
 
 
+	int Gamepad::GetType (int id) {
+
+		return SDL_GameControllerGetType(gameControllers[id]);
+
+	}
+
+
+	uint64_t Gamepad::GetDeviceSteamInputHandle (int id) {
+
+		return SDL_GameControllerGetSteamHandle(gameControllers[id]);
+
+	}
+
 }
