@@ -482,6 +482,11 @@
 				<vflag name="-framework" value="OpenAL" />
 				<vflag name="-framework" value="OpenGL" />
 				<vflag name="-framework" value="SystemConfiguration" />
+				<vflag name="-framework" value="AVFoundation" />
+				<vflag name="-weak_framework" value="GameController" />
+				<vflag name="-weak_framework" value="Metal" />
+				<vflag name="-weak_framework" value="QuartzCore" />
+				<vflag name="-weak_framework" value="CoreHaptics" />
 
 				<lib name="/opt/local/lib/libgc.a" if="LIME_NEKO" />
 				<lib name="-lm" if="LIME_NEKO" />
