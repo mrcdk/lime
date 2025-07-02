@@ -4,7 +4,7 @@ buildscript {
 			url "http://jcenter.bintray.com/"
 		}
 	}
-	
+
 	dependencies {
 		classpath 'com.android.tools.build:gradle:::::if (1 == 1)::ANDROID_GRADLE_PLUGIN::end::::'
 	}
@@ -15,6 +15,7 @@ apply plugin: 'com.android.library'
 android {
 	compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
 	buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+	namespace '::META_PACKAGE_NAME::'
 }
 
 dependencies {

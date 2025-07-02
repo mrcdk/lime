@@ -16,6 +16,7 @@ buildscript {
 
 android {
 	compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+	namespace '::META_PACKAGE_NAME::'
 	//buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
 	defaultConfig {

@@ -51,6 +51,7 @@ configure(subprojects.findAll {!it.file('build.gradle').exists() && it.file('bui
 	android {
 		compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
 		buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+		namespace '::META_PACKAGE_NAME::'
 
 		sourceSets {
 			main {
